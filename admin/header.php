@@ -49,7 +49,7 @@ if(!isset($_SESSION['user'])) {
 		<header class="main-header">
 
 			<a href="index.php" class="logo">
-				<span class="logo-lg">Fashionys.com</span>
+				<span class="logo-lg"><?php echo $_SERVER['HTTP_HOST'] ?? 'localhost:8080'; ?></span>
 			</a>
 
 			<nav class="navbar navbar-static-top">

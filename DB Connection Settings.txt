@@ -21,8 +21,10 @@ $dbuser = 'fashiony_ogs';
 // Database Password
 $dbpass = 'simple123';
 
-// Defining base url
-define("BASE_URL", "http://fashionys.com/");
+// Defining base url (Dynamic - will use current domain)
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost:8080';
+define("BASE_URL", $protocol . $host . "/");
 
 // Getting Admin url
 define("ADMIN_URL", BASE_URL . "admin" . "/");

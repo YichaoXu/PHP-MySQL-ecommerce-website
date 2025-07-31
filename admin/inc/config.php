@@ -6,19 +6,21 @@ ini_set('error_reporting', E_ALL);
 date_default_timezone_set('Asia/Dubai');
 
 // Host Name
-$dbhost = 'localhost';
+$dbhost = getenv('DB_HOST') ?: 'db'; // 默认为'db'，即docker-compose里的服务名
 
 // Database Name
-$dbname = 'fashiony_ogs';
+$dbname = getenv('DB_NAME') ?: 'fashiony_ogs';
 
 // Database Username
-$dbuser = 'root';
+$dbuser = getenv('DB_USER') ?: 'root';
 
 // Database Password
-$dbpass = '';
+$dbpass = getenv('DB_PASS') ?: '';
 
 // Defining base url
-define("BASE_URL", "http://fashionys.com/");
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost:8080';
+define("BASE_URL", $protocol . $host . "/");
 
 // Getting Admin url
 define("ADMIN_URL", BASE_URL . "admin" . "/");

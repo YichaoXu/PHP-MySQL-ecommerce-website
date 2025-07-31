@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: php-ecommerce-web
+    ports:
+      - "8081:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - TZ=Asia/Dubai
+      - DB_HOST=db
+      - DB_NAME=fashiony_ogs
+      - DB_USER=root
+      - DB_PASS=
+
+  db:
+    image: mysql:5.7
+    container_name: php-ecommerce-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: fashiony_ogs
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: Asia/Dubai
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./fashiony_ogs.sql:/docker-entrypoint-initdb.d/fashiony_ogs.sql
+
+volumes:
+  db_data:
